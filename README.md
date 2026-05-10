@@ -1,6 +1,115 @@
-🥗 Kalori Takip UygulamasıModern, şık ve kullanıcı dostu bir masaüstü kalori takip asistanı. Sağlıklı yaşam hedeflerinizi belirlemenize, günlük besin tüketiminizi kaydetmenize ve enerji dengenizi anlık olarak izlemenize yardımcı olur.✨ Öne Çıkan ÖzelliklerAkıllı BMR Hesaplayıcı: Yaş, boy, kilo ve aktivite seviyenize göre Mifflin-St Jeor formülünü kullanarak günlük kalori ihtiyacınızı (TDEE) otomatik hesaplar.Dinamik Tema Desteği: Tek tıkla Koyu (Dark) ve Açık (Light) modlar arasında geçiş yapabilen modern "Fluent Design" arayüzü.Kullanıcı Yönetimi: SQLite tabanlı güvenli giriş sistemi ve şifreleme (SHA-256).Anlık İlerleme Takibi: Hedef kaloriye ne kadar yaklaştığınızı gösteren görsel ilerleme çubuğu ve akıllı durum uyarıları.Günlük Kayıt Sistemi: Yediğiniz yiyecekleri kalori değerleriyle birlikte kaydedin, listeleyin ve yönetin.🛠 Kullanılan TeknolojilerDil: Python 3.xArayüz: PyQt5 (Modern Stil ve Animasyonlu Geçişler)Veritabanı: SQLite3 (İlişkisel Veri Modeli)Güvenlik: Hashlib (SHA-256 şifreleme)Mimari: Nesne Yönelimli Programlama (OOP)📸 Ekran GörüntüleriGiriş EkranıAna Sayfa (Özet)Profil & Ayarlar🚀 Kurulum ve ÇalıştırmaDepoyu klonlayın:Bashgit clone https://github.com/kullaniciadi/kalori-takip.git
+# 🥗 Kalori Takip Uygulaması
+
+Günlük kalori alımını takip etmek için geliştirilmiş, masaüstü tabanlı bir **PyQt5** uygulaması.  
+Çoklu kullanıcı desteği, profil yönetimi, BMR hesaplama ve tema sistemi içerir.
+
+---
+
+## 📸 Özellikler
+
+- 🔐 **Kullanıcı Sistemi** — Kayıt ol, giriş yap, şifre değiştir (SHA-256 hash ile güvenli saklama)
+- 👤 **Profil Yönetimi** — Boy, kilo, yaş, cinsiyet ve aktivite seviyesi girişi
+- 🧮 **Otomatik Kalori Hesaplama** — Mifflin-St Jeor formülüyle BMR ve günlük kalori ihtiyacı (TDEE) hesaplama
+- 🍽️ **Günlük Takip** — Yiyecek ekle / sil, anlık kalori özeti
+- 📊 **İlerleme Çubuğu** — Hedefe göre renkli durum göstergesi (yeşil / kırmızı)
+- 🎨 **Tema Sistemi** — Koyu 🌙 ve Açık ☀️ tema desteği, tercih hesaba kaydedilir
+- 💾 **Kalıcı Veri** — SQLite veritabanı, tüm kayıtlar yerel olarak saklanır
+- 🖥️ **Tam Ekran Desteği** — Yeniden boyutlandırılabilir, tam ekran yapılabilir pencere
+
+---
+
+## 🚀 Kurulum
+
+### Gereksinimler
+
+- Python 3.8+
+- PyQt5
+
+### Adımlar
+
+```bash
+# Repoyu klonla
+git clone https://github.com/kullanici-adin/kalori-takip.git
 cd kalori-takip
-Gerekli kütüphaneleri yükleyin:Bashpip install PyQt5
-Uygulamayı başlatın:Bashpython Proje.py
-📂 Dosya YapısıProje.py: Uygulamanın ana kaynak kodu (Arayüz ve Mantık).kalori.db: Kullanıcı verilerinin ve kayıtların tutulduğu SQLite veritabanı (Çalıştığında otomatik oluşturulur).💡 Kullanım İpuçlarıİlk Adım: Kayıt olduktan sonra Profil sekmesine giderek vücut bilgilerinizi girin ve "BMR Hesapla" butonuna basın. Bu, size özel bir günlük hedef belirler.Yiyecek Ekleme: Ana sayfadaki form üzerinden yiyecek adını ve kalorisini yazarak "Enter" tuşuna basabilir veya "Ekle" butonunu kullanabilirsiniz.Hedef Aşımı: Eğer günlük hedefinizi aşarsanız, uygulama sizi kırmızı bir uyarı çubuğu ile bilgilendirecektir.Geliştirici NotuBu proje, Python'da GUI (Arayüz) geliştirme ve veritabanı entegrasyonu mantığını kavramak amacıyla geliştirilmiştir. Geri bildirimlerinize ve katkılarınıza açıktır!# Calori-Calculate-App
-A PyQt project about calculating calories
+
+# Gerekli paketi yükle
+pip install PyQt5
+
+# Uygulamayı çalıştır
+python Proje.py
+```
+
+> **Not:** Uygulama ilk çalıştırmada `kalori.db` adlı bir SQLite veritabanı oluşturur.  
+> Bu dosya `.py` dosyasıyla aynı klasörde yer alır.
+
+---
+
+## 🗂️ Proje Yapısı
+
+```
+kalori-takip/
+│
+├── Proje.py          # Ana uygulama dosyası
+├── kalori.db         # SQLite veritabanı (otomatik oluşturulur)
+└── README.md
+```
+
+---
+
+## 🧠 BMR Hesaplama Yöntemi
+
+Uygulama, **Mifflin-St Jeor** formülünü kullanır:
+
+| Cinsiyet | Formül |
+|----------|--------|
+| Erkek    | `(10 × kilo) + (6.25 × boy) − (5 × yaş) + 5` |
+| Kadın    | `(10 × kilo) + (6.25 × boy) − (5 × yaş) − 161` |
+
+Bulunan BMR değeri aktivite katsayısıyla çarpılarak **TDEE** (günlük toplam enerji harcaması) hesaplanır:
+
+| Aktivite Seviyesi | Katsayı |
+|-------------------|---------|
+| Hareketsiz        | 1.20    |
+| Hafif aktif       | 1.375   |
+| Orta aktif        | 1.55    |
+| Aktif             | 1.725   |
+| Çok aktif         | 1.90    |
+
+---
+
+## 🛠️ Kullanılan Teknolojiler
+
+| Teknoloji | Açıklama |
+|-----------|----------|
+| Python 3  | Ana programlama dili |
+| PyQt5     | Masaüstü arayüz kütüphanesi |
+| SQLite3   | Yerel veritabanı |
+| hashlib   | SHA-256 şifre hashleme |
+
+---
+
+## 📋 Veritabanı Şeması
+
+```
+kullanicilar   → id, kullanici_adi, sifre_hash
+profil         → kullanici_id, cinsiyet, yas, boy, kilo, aktivite, tema
+hedef          → kullanici_id, gunluk_kcal
+yiyecekler     → id, kullanici_id, isim, kalori, tarih
+```
+
+---
+
+## 🔮 Gelecek Özellikler
+
+- [ ] Haftalık / aylık kalori grafiği (matplotlib)
+- [ ] Yiyecek veritabanı ve otomatik tamamlama
+- [ ] Öğün kategorileri (kahvaltı, öğle, akşam)
+- [ ] Makro besin takibi (protein, karbonhidrat, yağ)
+- [ ] Excel / PDF rapor dışa aktarma
+- [ ] Su takibi
+
+---
+
+## 👨‍💻 Geliştirici
+
+Bu proje **Görsel Programlama** dersi kapsamında geliştirilmiştir.
